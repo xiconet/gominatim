@@ -198,10 +198,10 @@ func (q *SearchQuery) Get() ([]SearchResult, error) {
 		return nil, err
 	}
 	req, err := http.NewRequest("GET", querystring, nil)
-	req.Header.Set("User-Agent", user_agent)
 	if err != nil {
 		panic(err)
 	}
+	req.Header.Set("User-Agent", user_agent)
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		fmt.Println("error while fetching", querystring) 
