@@ -27,6 +27,8 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"fmt"
+	"log"
 )
 
 type searchResultError struct {
@@ -195,12 +197,21 @@ func (q *SearchQuery) Get() ([]SearchResult, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := http.Get(querystring)
+	req, err := http.NewRequest("GET", querystring, nil)
+	req.Header.Set("User-Agent", user_agent)
 	if err != nil {
+		panic(err)
+	}
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		fmt.Println("error while fetching", querystring) 
 		return nil, err
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
+	if resp.StatusCode > 299 {
+		log.Fatalf("Response failed with status code: %d and\nbody: %s\n", resp.StatusCode, body)
+	}
 	if err != nil {
 		return nil, err
 	}
