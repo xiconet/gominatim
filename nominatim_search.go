@@ -30,11 +30,11 @@ import (
 	"fmt"
 	"log"
 )
-
+const user_agent = "some_user_agent_of_your_choice"
 type searchResultError struct {
 	error string `json:"error"`
 }
-
+ 
 type SearchResult struct {
 	PlaceId       int64      `json:"place_id"`
 	License       string     `json:"license"`
