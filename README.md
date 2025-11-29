@@ -46,7 +46,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/muesli/gominatim"
+	"github.com/xiconet/gominatim"
 )
 
 func main() {
