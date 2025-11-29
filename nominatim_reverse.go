@@ -24,6 +24,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -103,9 +104,20 @@ func (r *ReverseQuery) Get() (*ReverseResult, error) {
 	if err != nil {
 		return nil, err
 	}
-	resp, err := http.Get(querystring)
+	req, err := http.NewRequest("GET", querystring, nil)
 	if err != nil {
 		return nil, err
+	}
+	req.Header.Set("User-Agent", user_agent)
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		fmt.Println("error while fetching", querystring) 
+		return nil, err
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if resp.StatusCode > 299 {
+		log.Fatalf("Response failed with status code: %d and\nbody: %s\n", resp.StatusCode, body)
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
