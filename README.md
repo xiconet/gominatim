@@ -6,7 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/muesli/gominatim/badge.svg?branch=master)](https://coveralls.io/github/muesli/gominatim?branch=master)
 [![Go ReportCard](http://goreportcard.com/badge/muesli/gominatim)](http://goreportcard.com/report/muesli/gominatim)
 
-## Geocoding? WTF?
+## Geocoding? 
 
 If you want to determine the coordinates of a certain location by only having its
 name, you can do this via a geocoding service. If you want to do this in Go, you
